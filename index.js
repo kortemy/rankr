@@ -13,11 +13,18 @@ app.use(bodyParser.json({ limit: '3mb' }))
 app.use(bodyParser.urlencoded({ extended: true, limit: '3mb' }))
 
 app.get('/', (req, res) => res.send('OK'))
-app.post('/execute', (req, res) => {
+app.post('/queue', async (req, res) => {
   try {
-    slack(req.body)
+    console.log(req.body)
+    let [ period, unit ] = req.body.text.split(' ')
 
-    res.send('Okay, give me a sec...')
+    if (!['minutes', 'hours', 'hour', 'days', 'day', 'week', 'weeks', 'month', 'months', undefined].includes(unit)) {
+      res.send(`:no_mouth: Yeah, I can't figure out that time period: *${req.body.text}*`)
+      return
+    }
+    slack(Number(period) || 7, unit || 'days', req.body.response_url)
+
+    res.send(':point_up: Okay, give me a second...')
   } catch (e) {
     console.trace(e)
     res.status(500)
