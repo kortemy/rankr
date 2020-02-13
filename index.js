@@ -32,4 +32,4 @@ app.post('/queue', async (req, res) => {
 
 let server = http.createServer(app)
 
-server.listen(port, () => { console.log(`Rankr running on port ${config.port}`) })
+server.listen(port, () => { console.log(`Rankr running on port ${port}`) })
