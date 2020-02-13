@@ -1,6 +1,5 @@
 const Promise = require('bluebird')
 const moment = require('moment')
-const request = require('request')
 const { WebClient } = require('@slack/web-api')
 
 const BOT_TOKEN = process.env.BOT_TOKEN
@@ -90,21 +89,4 @@ module.exports = async function execute (period, unit, channel) {
     mrkdwn: true,
     blocks: blocks
   })
-
-  // await request({
-  //   uri: url,
-  //   method: 'POST',
-  //   json: true,
-  //   body: {
-  //     text: ':trophy: Here are the rankings for the last *1 day*:',
-  //     mrkdwn: true,
-  //     blocks: blocks
-  //   }
-  // }, (err, resp, body) => {
-  //   if (err) {
-  //     console.trace(err)
-  //     return
-  //   }
-  //   console.log(body)
-  // })
 }
