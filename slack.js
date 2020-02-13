@@ -3,18 +3,18 @@ const moment = require('moment')
 const request = require('request')
 const { WebClient } = require('@slack/web-api')
 
-const BOTTOKEN = 'xoxb-16384980435-949160001157-QYpuvivcsuCw6tVJShuYBQWx'
+const BOT_TOKEN = process.env.BOT_TOKEN
 
 module.exports = async function execute (period, unit, url) {
   let client = new WebClient(BOTTOKEN)
 
   let { channels } = await client.conversations.list({
-    token: BOTTOKEN,
+    token: BOT_TOKEN,
   })
 
   let data = await Promise.reduce(channels, async (result, channel) => {
     let { messages } = await client.conversations.history({
-      token: BOTTOKEN,
+      token: BOT_TOKEN,
       channel: channel.id,
       oldest: moment().subtract(period, unit).unix()
     })
