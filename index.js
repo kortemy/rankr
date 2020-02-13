@@ -1,13 +1,11 @@
-const config = require('./config')
-
 const http = require('http')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
 const slack = require('./slack')
+const port = process.env.PORT || 5000
 
-app.set('config', config)
 app.use(cors())
 app.use(bodyParser.json({ limit: '3mb' }))
 app.use(bodyParser.urlencoded({ extended: true, limit: '3mb' }))
@@ -34,4 +32,4 @@ app.post('/queue', async (req, res) => {
 
 let server = http.createServer(app)
 
-server.listen(config.port, () => { console.log(`Rankr running on port ${config.port}`) })
+server.listen(port, () => { console.log(`Rankr running on port ${config.port}`) })
