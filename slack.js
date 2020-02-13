@@ -6,7 +6,7 @@ const { WebClient } = require('@slack/web-api')
 const BOT_TOKEN = process.env.BOT_TOKEN
 
 module.exports = async function execute (period, unit, url) {
-  let client = new WebClient(BOTTOKEN)
+  let client = new WebClient(BOT_TOKEN)
 
   let { channels } = await client.conversations.list({
     token: BOT_TOKEN,
