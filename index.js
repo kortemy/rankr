@@ -20,7 +20,7 @@ app.post('/queue', async (req, res) => {
       res.send(`:no_mouth: Yeah, I can't figure out that time period: *${req.body.text}*`)
       return
     }
-    slack(Number(period) || 7, unit || 'days', req.body.response_url)
+    slack(Number(period) || 7, unit || 'days', req.body.channel_id)
 
     res.send(':point_up: Okay, give me a second...')
   } catch (e) {
