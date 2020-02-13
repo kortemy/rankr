@@ -13,6 +13,10 @@ module.exports = async function execute (period, unit, url) {
   })
 
   let data = await Promise.reduce(channels, async (result, channel) => {
+    await client.conversations.join({
+      token: BOT_TOKEN,
+      channel: channel.id,
+    })
     let { messages } = await client.conversations.history({
       token: BOT_TOKEN,
       channel: channel.id,
