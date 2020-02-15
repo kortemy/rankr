@@ -31,7 +31,7 @@ module.exports = async function execute (period, unit, channel) {
       messages = messages.concat(response.messages)
       cursor = response.response_metadata.next_cursor
       count += 1
-      console.log(cursor)
+      console.log(response.response_metadata)
     }
 
     messages.forEach(message => {
