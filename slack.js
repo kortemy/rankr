@@ -16,24 +16,11 @@ module.exports = async function execute (period, unit, channel) {
       token: BOT_TOKEN,
       channel: channel.id,
     })
-    let messages = []
-    let cursor
-    let count = 0
-
-    while (cursor !== '' || count < 2) {
-      let response = await client.conversations.history({
-        token: BOT_TOKEN,
-        channel: channel.id,
-        oldest: moment().subtract(period, unit).unix(),
-        cursor: cursor
-      })
-      
-      messages = messages.concat(response.messages)
-      cursor = response.response_metadata.next_cursor
-      count += 1
-      console.log(response.response_metadata)
-    }
-
+    let { messages } = await client.conversations.history({
+      token: BOT_TOKEN,
+      channel: channel.id,
+      oldest: moment().subtract(period, unit).unix()
+    })
     messages.forEach(message => {
       if (!message.reactions) {
         return
