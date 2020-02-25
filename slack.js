@@ -30,9 +30,8 @@ module.exports = async function execute (period, unit, channel) {
         limit: 100
       })
       console.log(response_metadata)
-      let cursor = response_metadata.next_cursor
-      finished = !cursor
-      return { messages, cursor }
+      finished = !response_metadata.next_cursor
+      return { messages, cursor: response_metadata.next_cursor }
     }
 
     let cursor
