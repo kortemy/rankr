@@ -19,9 +19,7 @@ module.exports = async function execute (period, unit, channel) {
 
     let messages = []
     let finished = false
-    console.log(channel.name)
     const getPage = async (cursor) => {
-      console.log(cursor)
       let { messages, response_metadata } = await client.conversations.history({
         token: BOT_TOKEN,
         channel: channel.id,
@@ -29,7 +27,6 @@ module.exports = async function execute (period, unit, channel) {
         cursor: cursor,
         limit: 100
       })
-      console.log(response_metadata)
       finished = !response_metadata.next_cursor
       return { messages, cursor: response_metadata.next_cursor }
     }
@@ -39,7 +36,6 @@ module.exports = async function execute (period, unit, channel) {
       let result = await getPage(cursor)
       cursor = result.cursor
       messages = messages.concat(result.messages)
-      console.log(messages.length)
     }
 
     messages.forEach(message => {

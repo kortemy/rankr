@@ -13,7 +13,6 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '3mb' }))
 app.get('/', (req, res) => res.send('OK'))
 app.post('/queue', async (req, res) => {
   try {
-    console.log(req.body)
     let [ period, unit ] = req.body.text.split(' ')
 
     if (!['minutes', 'hours', 'hour', 'days', 'day', 'week', 'weeks', 'month', 'months', undefined].includes(unit)) {
