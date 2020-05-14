@@ -42,7 +42,8 @@ module.exports = async function execute (period, unit, channel) {
       if (!message.reactions) {
         return
       }
-      let user = result[message.user] || { id: message.user, total: 0, reactions: {} }
+      let user = result[message.user] || { id: message.user, total: 0, messages: 0, reactions: {} }
+      user.messages += 1
       message.reactions.forEach(reaction => {
         user.reactions[reaction.name] = user.reactions[reaction.name] || { name: reaction.name, total: 0 }
         user.reactions[reaction.name].total += reaction.count
@@ -79,7 +80,7 @@ module.exports = async function execute (period, unit, channel) {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `#${i + 1} <@${u.id}> - *${u.total}* reactions`,
+          text: `#${i + 1} <@${u.id}> - *${u.total}* reactions (total ${u.messages} messages)`,
         }
       })
       blocks.push({
