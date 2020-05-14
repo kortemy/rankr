@@ -83,11 +83,12 @@ module.exports = async function execute (period, unit, channel) {
           text: `#${i + 1} <@${u.id}> - *${u.total}* reactions (total ${u.messages} messages)`,
         }
       })
+      let text = u.reactions.length > 0 ? u.reactions.map(r => `${r.total} x :${r.name}:`).join(' | ') : 'No reactions'
       blocks.push({
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: u.reactions.map(r => `${r.total} x :${r.name}:`).join(' | '),
+          text: text,
         },
       })
     })
