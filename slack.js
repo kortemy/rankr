@@ -39,16 +39,16 @@ module.exports = async function execute (period, unit, channel) {
     }
 
     messages.forEach(message => {
-      if (!message.reactions) {
-        return
-      }
       let user = result[message.user] || { id: message.user, total: 0, messages: 0, reactions: {} }
       user.messages += 1
-      message.reactions.forEach(reaction => {
-        user.reactions[reaction.name] = user.reactions[reaction.name] || { name: reaction.name, total: 0 }
-        user.reactions[reaction.name].total += reaction.count
-        user.total += reaction.count
-      })
+
+      if (message.reactions) {
+        message.reactions.forEach(reaction => {
+          user.reactions[reaction.name] = user.reactions[reaction.name] || { name: reaction.name, total: 0 }
+          user.reactions[reaction.name].total += reaction.count
+          user.total += reaction.count
+        })
+      }
       result[message.user] = user
     })
     return result
